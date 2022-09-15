@@ -1,0 +1,60 @@
+/*자원의 할당 여부 확인*/
+//고객이 선택한 사무용품 할당:1 
+//고객이 선택 안 한 사무용품:0
+Boolean resourceCheck(int r_type) {
+  Boolean r_check = FALSE; 
+  int use_stapler = 0;
+  int use_stamp = 0;
+  int use_copyMachine = 0; 
+  switch (r_type) {
+    case 1: break;
+    case 2: use_stapler = 1; break;
+    case 3: use_copyMachine = 1; break;
+    case 4: use_stamp = 1;
+    case 5: use_stapler = 1; use_stamp = 1; break;
+    case 6: use_stamp = 1; use_copyMachine = 1; break;
+    case 7: use_copyMachine = 1; use_stapler = 1; break;
+    case 8: use_stapler = 1; use_stamp = 1; use_copyMachine = 1; break;
+    default: break;
+  }
+  if (stapler - use_stapler >= 0 && copyMachine - use_copyMachine >= 0 && stamp - use_stapler >= 0) { //사용하는 자원이 있다면
+    r_check = TRUE;  
+  }
+  return r_check;
+}
+
+
+/* 자원 사용*/
+//자원을 사용하면 사무용품:0
+//자원을 사용 완료 사무용품:1
+//고객이 사용할 때 마다 사용한 자원의 count값이 올라감 
+void resourceFunc(int r_type) {
+  switch (r_type) { 
+  case 1: break; 
+  case 2: stapler--; stapler_count++; break;
+  case 3: copyMachine--; copyMachine_count++; break;
+  case 4: stamp--; stamp_count++; break; 
+  case 5: stapler--; stapler_count++; stamp--; stamp_count++; break;
+  case 6: stamp--; stamp_count++; copyMachine--; copyMachine_count++; break;
+  case 7: copyMachine--; copyMachine_count++; stapler--; stapler_count++; break;
+  case 8: stapler--; stapler_count++; stamp--; stamp_count++; copyMachine--; copyMachine_count++; break;
+  default: break;
+  } 
+}
+
+
+/* 자원 해제 */
+//자원을 반납해줌
+void resourceRFunc(int r_type) {
+  switch (r_type) {
+    case 1: break; 
+    case 2: stapler++; break; 
+    case 3: copyMachine++; break; 
+    case 4: stamp++; break; 
+    case 5: stapler++; stamp++; break;
+    case 6: stamp++; copyMachine++; break; 
+    case 7: copyMachine++; stapler++; break;
+    case 8: stapler++; stamp++; copyMachine++; break;
+    default: break;
+  }
+}
