@@ -1,0 +1,39 @@
+void *Inthrfunc(void *arg) {
+  while (service_count < 100000) {
+    if (q_clock <= service_clock) {
+      int get_intime = 0; // 입장 시간 설정 변수 int get_count = 0;
+      int get_sec = 0;
+      double get_priorty = 0.0;
+      int get_outtime = 0;
+      int get_servicetype = 0;
+      int i = 0;
+      get_count = (int)(MYRand() * 5) + 1;
+      get_sec = (int)(MYRand() * 10) + 1;
+      get_intime = get_intime + get_sec; 
+      customers_count = customers_count + get_count;
+      
+      while (i < get_count) { // get_count 만큼 진행 
+        get_outtime = (int)(MYRand() * 31) + 30; // 대기 허용시간 = 입장 시간 + 30~60초
+        get_priorty = MYRand();
+        get_servicetype = (int)(MYRand() * 3) + 1; // 1 = 이체, 2,3 = 입출금
+        pthread_mutex_lock(&mutex); 
+        if(i == 0) {
+          q_clock = q_clock + get_intime;// 현재 시간 계산
+        }
+        if(get_priorty <= 0.001) { //VIP 의 경우
+          waitQueue_In(&queue, wait_call_number, 1, q_clock, get_outtime, get_servicetype); // 큐에 고객을 넣음
+        }
+        else { // 일반 고객의 경우
+          waitQueue_In(&queue, wait_call_number, 0, q_clock, get_outtime, get_servicetype); // 큐에 고객을 넣음
+        }
+        wait_call_number++; // 번호표 증가
+        i++;
+        usleep(1);
+        pthread_mutex_unlock(&mutex);
+      } 
+    }
+    else {
+      usleep(1);
+    }
+  }
+}
