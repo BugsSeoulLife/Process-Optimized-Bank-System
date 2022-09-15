@@ -1,0 +1,33 @@
+void waitQueue_In(c_queue *queue, int c_number, int c_priorty, int c_intime, int c_outtime, int c_type) {
+  cptr new_customer = (cptr)malloc(sizeof(customer)); 
+  new_customer->wait_number = c_number; 
+  new_customer->cust_priorty = c_priorty; 
+  new_customer->in_time = c_intime;
+  new_customer->out_time = new_customer->in_time + c_outtime; 
+  new_customer->wait_time = 0;
+  new_customer->serviced_time = 0;
+  if (c_type == 1) { //이체
+    new_customer->service_type=1;
+  }
+  else { //입출금
+    new_customer->service_type=0;
+  }
+  new_customer->next = NULL; 
+  if (queue->count == 0) { 
+    queue->front = new_customer; 
+    queue->rear = new_customer; 
+    queue->count++;
+  }
+  else {  //VIP 입장한 경우
+    if (new_customer->cust_priorty == 1) { 
+      cptr temp = queue->front; 
+      queue->front = new_customer; 
+      queue->front->next = temp;
+    }
+    else { // 일반 고객 입장한 경우
+      queue->rear->next = new_customer; 
+      queue->rear = new_customer;
+    }
+    queue->count++; //고객 대기 큐에 넣음 
+  }
+ }
