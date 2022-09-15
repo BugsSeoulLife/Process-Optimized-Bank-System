@@ -1,6 +1,6 @@
 # Bank-System
 
-<img width="200" height="150" alt="image" src="https://user-images.githubusercontent.com/26247241/190343124-a1b24a6d-3515-454b-bb59-daa6e697e661.png"><img width="200" height="150" alt="image" src="https://user-images.githubusercontent.com/26247241/190343174-0723632a-96a3-40b6-8a13-b67b2efd4fe0.png">
+<img width="300" height="200" alt="image" src="https://user-images.githubusercontent.com/26247241/190343124-a1b24a6d-3515-454b-bb59-daa6e697e661.png">. <img width="300" height="200" alt="image" src="https://user-images.githubusercontent.com/26247241/190343174-0723632a-96a3-40b6-8a13-b67b2efd4fe0.png">
 
 
 timespent : 2015.04~06
