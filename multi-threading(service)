@@ -1,0 +1,74 @@
+void *Servicethrfunc(void *arg) {
+  int q2 = service_clock;
+  while (service_count < 100000) {
+    if (service_clock < q_clock) {
+      pthread_mutex_lock(&mutex1); 
+      if ((&queue)->count > 0) {
+        (&queue)->front = s_customer->next;
+        (&queue)->count--;
+        pthread_mutex_unlock(&mutex1);
+        if (s_customer->out_time > q2) { 
+          service_count++;
+          int get_service_time = (int)(MYRand() * 5) + 5; // 5 ~ 9 sec int use_money = ((int)(MYRand() * 100) + 1) * 10000;
+          int get_r_type = (int)(MYRand() * 8) + 1; // 1 ~ 8 sec Boolean get_r_state;
+          if (s_customer->in_time >= q2) { 
+            q2 = s_customer->in_time;
+          }
+          s_customer->wait_time = q2 - s_customer->in_time; 
+          wait_time_sum = wait_time_sum + s_customer->wait_time; 
+          s_customer->serviced_time = get_service_time;
+          get_r_state = resourceCheck(get_r_type);
+          if (get_r_state = FALSE) {
+            while (get_r_state == FALSE) {
+            get_r_state = resourceCheck(get_r_type); 
+          }
+        }
+        pthread_mutex_lock(&mutex2);
+        pthread_mutex_unlock(&mutex2);
+        if (s_customer->service_type == 0) {
+          int deposit_withdraw = (int)(MYRand() * 2); // 0 or 1
+          if (deposit_withdraw == 0) { 
+            pthread_mutex_lock(&mutex3);
+            b_money = b_money + use_money;
+          }
+          else {
+            pthread_mutex_lock(&mutex3); 
+            if (deposit_withdraw == 1) {
+              Boolean m_check = FALSE;
+              while ((m_check = moneyCheck(use_money)) == FALSE);
+            }
+            b_money = b_money - use_money; 
+          }
+        }
+        else {
+          pthread_mutex_lock(&mutex3);
+          double balance = 0.01;
+          b_money = b_money - use_money;
+          b_money = b_money + use_money + (int)(balance*use_money);
+        }
+        usleep(1); pthread_mutex_unlock(&mutex3);
+        pthread_mutex_lock(&mutex2);
+        usleep(1);
+        pthread_mutex_unlock(&mutex2);
+        q2 = q2 + s_customer->serviced_time;
+        service_time_sum = service_time_sum + s_customer->serviced_time;
+        customer_Out(s_customer);
+        if (service_clock <= q2) {
+          service_clock = q2;
+        }
+        else {
+          wait_time_sum = wait_time_sum + s_customer->out_time - s_customer->in_time;
+          customer_Out(s_customer);
+          not_service_count++;
+        }
+      }
+      else { 
+        usleep(1);
+        pthread_mutex_unlock(&mutex1); 
+      }
+    }
+    else {
+      usleep(1);
+    }
+  }
+}
