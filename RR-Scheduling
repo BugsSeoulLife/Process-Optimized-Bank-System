@@ -1,0 +1,26 @@
+void RR(process){
+  for(i=0; i<n; i++){
+    if(pt[i]>timer){
+      rt=pt[i]-timer;
+      strcpy(p[n],p[i]);
+      pt[n]=rt; //time left after process-execution et[i]=timer;
+      n++;
+    }
+    else { //time과 같거나 더 적은 시간이 남았을 시 
+      et[i]=pt[i];
+    }
+    i++;
+    wt[i]=wt[i-1]+et[i-1];
+    }
+    count=0;
+    for(i=0;i<m;i++) {
+      for(j=i+1;j<=n;j++) {
+        if(strcmp(p[i],p[j])==0) { // 같은 process 비교 시, 
+          count++;
+          found=j;
+        }
+      }
+      if(found!=0){ wt[i]=wt[found]-(count*timer); count=0;
+      found=0;
+  }
+ }
