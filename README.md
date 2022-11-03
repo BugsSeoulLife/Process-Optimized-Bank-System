@@ -8,7 +8,7 @@
 
 > timespent : 2015.04~06
 
-> tech : VirtualBox CentOS LINUX, C
+> tech : VirtualBox, LINUX, C
 
 > functions : multi-threading(entrance,service), mutex, scheduling(FCFS,RR)
  
